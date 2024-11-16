@@ -1,3 +1,4 @@
+"use client"
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import DottedSeparator from "@/components/shared/dotted-separator";
@@ -21,7 +22,7 @@ import { useLogin } from "../api/use-login";
 
 const SignInCard = () => {
 
-  const {mutate} = useLogin()
+  const {mutate, isPending} = useLogin()
 
 
   const form = useForm<z.infer<typeof loginSchema>>({
@@ -79,7 +80,7 @@ const SignInCard = () => {
                   </FormItem>
                 )}
               />
-              <Button disabled={false} size={"lg"} className="w-full">
+              <Button disabled={isPending} size={"lg"} className="w-full">
                 Login
               </Button>
             </form>
@@ -90,7 +91,7 @@ const SignInCard = () => {
           <Button
             variant={"secondary"}
             size={"lg"}
-            disabled={false}
+            disabled={isPending}
             className="w-full"
           >
             {" "}
@@ -99,7 +100,7 @@ const SignInCard = () => {
           <Button
             variant={"secondary"}
             size={"lg"}
-            disabled={false}
+            disabled={isPending}
             className="w-full"
           >
             {" "}
