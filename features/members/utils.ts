@@ -18,9 +18,9 @@ export const getMember = async ({databases, workspaceId, userId}: GetMemberProps
         ]
     )
     
-    if (members.total === 0) {
-        throw new Error("No member found")
-    }
+    // if (members.total === 0) {
+    //     throw new Error("No member found")
+    // }
     
     return members.documents[0]
 }
