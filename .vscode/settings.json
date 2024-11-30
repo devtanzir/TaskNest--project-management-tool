@@ -4,6 +4,7 @@
         "clsx",
         "hono",
         "lucide",
+        "sonner",
         "tailwindcss",
         "tanstack"
     ]

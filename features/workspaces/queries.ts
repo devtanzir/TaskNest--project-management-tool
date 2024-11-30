@@ -7,7 +7,6 @@ import { Query } from "node-appwrite"
 
 export const getWorkspaces = async () => {
 
-    try {
       const {account, databases} = await createSessionClient()
         const user = await account.get()
     
@@ -31,10 +30,7 @@ export const getWorkspaces = async () => {
             ]
           );
           return workspaces
-    } catch (error) {
-        console.error(error)
-        return {document:[], total: 0};
-    }
+
 
 }
 
@@ -42,7 +38,7 @@ export const getWorkspaces = async () => {
 
 export const getWorkspace = async ({workspaceId} : {workspaceId: string}) => {
 
-  try {
+
       const {account, databases} = await createSessionClient()
       const user = await account.get()
   
@@ -52,7 +48,7 @@ export const getWorkspace = async ({workspaceId} : {workspaceId: string}) => {
         workspaceId
       })
       
-      if (!member) return null
+      if (!member) throw new Error("Unauthorized")
       
         const workspace = await databases.getDocument<Workspace>(
           DATABASE_ID,
@@ -60,16 +56,12 @@ export const getWorkspace = async ({workspaceId} : {workspaceId: string}) => {
          workspaceId,
         );
         return workspace
-  } catch (error) {
-      console.error(error)
-      return null;
-  }
+
 
 }
 
 export const getWorkspaceInfo = async ({workspaceId} : {workspaceId: string}) => {
 
-  try {
       const { databases} = await createSessionClient()
       
         const workspace = await databases.getDocument<Workspace>(
@@ -80,9 +72,5 @@ export const getWorkspaceInfo = async ({workspaceId} : {workspaceId: string}) =>
         return {
           name: workspace.name
         }
-  } catch (error) {
-      console.error(error)
-      return null;
-  }
 
 }

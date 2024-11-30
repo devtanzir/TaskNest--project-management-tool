@@ -5,36 +5,35 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 type ResponseType = InferResponseType<
-  (typeof client.api.workspaces)[":workspaceId"]["reset-invite-code"]["$post"],
+  (typeof client.api.projects)[":projectId"]["$patch"],
   200
 >;
 type RequestType = InferRequestType<
-  (typeof client.api.workspaces)[":workspaceId"]["reset-invite-code"]["$post"]
+  (typeof client.api.projects)[":projectId"]["$patch"]
 >;
 
-export const useResetInviteCode = () => {
+export const useUpdateProject = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const mutation = useMutation<ResponseType, Error, RequestType>({
-    mutationFn: async ({ param }) => {
-      const response = await client.api.workspaces[":workspaceId"][
-        "reset-invite-code"
-      ]["$post"]({
+    mutationFn: async ({ form, param }) => {
+      const response = await client.api.projects[":projectId"]["$patch"]({
+        form,
         param,
       });
       if (!response.ok) {
-        throw new Error("Failed to reset invite code");
+        throw new Error("Failed to update project");
       }
       return await response.json();
     },
     onSuccess: ({ data }) => {
-      toast.success("Invite code reset");
+      toast.success("Project updated");
       router.refresh();
-      queryClient.invalidateQueries({ queryKey: ["workspaces"] });
-      queryClient.invalidateQueries({ queryKey: ["workspace", data.$id] });
+      queryClient.invalidateQueries({ queryKey: ["projects"] });
+      queryClient.invalidateQueries({ queryKey: ["project", data.$id] });
     },
     onError: () => {
-      toast.error("Failed to reset invite code");
+      toast.error("Failed to update project");
     },
   });
   return mutation;

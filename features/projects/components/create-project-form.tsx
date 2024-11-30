@@ -20,13 +20,15 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { ImageIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useCreateProject } from "../api/use-create-project";
-import { createProjectSchema } from "../schema";
+import { createProjectSchema } from "../schemas";
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspaceId";
+import { useRouter } from "next/navigation";
 
 interface CreateProjectFromProps {
   onCancel?: () => void;
 }
 const CreateProjectForm = ({ onCancel }: CreateProjectFromProps) => {
+  const router = useRouter();
   const workspaceId = useWorkspaceId()
   const { mutate, isPending } = useCreateProject();
 
@@ -46,9 +48,9 @@ const CreateProjectForm = ({ onCancel }: CreateProjectFromProps) => {
       image: values.image instanceof File ? values.image : "",
     }
     mutate({ form: finalValues }, {
-      onSuccess: () => {
+      onSuccess: ({data}) => {
         form.reset()
-        // TODO: Redirect to project screen
+        router.push(`/workspaces/${workspaceId}/projects/${data.$id}`)
       },
     });
   };
