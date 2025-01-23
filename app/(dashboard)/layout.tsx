@@ -3,6 +3,7 @@ import Navbar from "./_components/navbar";
 import CreateWorkspacesModal from "@/features/workspaces/components/create-workspaces-modal";
 import CreateProjectsModal from "@/features/projects/components/create-project-modal";
 import CreateTaskModal from "@/features/tasks/components/create-task-modal";
+import EditTaskModal from "@/features/tasks/components/edit-task-modal";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -10,6 +11,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
       <CreateWorkspacesModal/>
       <CreateProjectsModal/>
       <CreateTaskModal/>
+      <EditTaskModal/>
       <div className="flex w-full h-full">
         <div className="fixed lezft-0 top-0 hidden lg:block lg:w-[264px] h-full overflow-y-auto">
             <Sidebar/>
