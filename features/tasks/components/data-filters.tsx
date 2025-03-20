@@ -90,7 +90,7 @@ const DataFilters = ({ hideProjectFilter }: DataFilterProps) => {
           ))}
         </SelectContent>
       </Select>
-      <Select
+      {!hideProjectFilter && <Select
         defaultValue={projectId ?? undefined}
         onValueChange={(value) => onProjectChange(value)}
       >
@@ -107,7 +107,8 @@ const DataFilters = ({ hideProjectFilter }: DataFilterProps) => {
             </SelectItem>
           ))}
         </SelectContent>
-      </Select>
+      </Select>}
+      
       <DatePicker placeholder="Due date"
       className="h-8 w-full lg:w-auto"
       value={dueDate ? new Date(dueDate) : undefined}
