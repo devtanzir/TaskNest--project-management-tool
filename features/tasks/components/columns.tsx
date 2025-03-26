@@ -45,7 +45,6 @@ export const columns: ColumnDef<Task>[] = [
       },
     cell: ({ row }) => {
       const project = row.original.project;
-      console.log(row , "this is project");
       return <div className="flex items-center gap-x-2 text-sm font-medium">
         <ProjectAvatar
         className="size-6"
