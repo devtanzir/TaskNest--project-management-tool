@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/form";
 import { registerSchema } from "../schemas";
 import { useRegister } from "../api/use-register";
+import { signUpWithGithub, signUpWithGoogle } from "@/lib/oauth";
 
 
 const SignUpCard = () => {
@@ -122,6 +123,7 @@ const SignUpCard = () => {
         <DottedSeparator />
         <CardContent className="p-7 flex flex-col gap-y-4">
           <Button
+          onClick={() => signUpWithGoogle()}
             variant={"secondary"}
             size={"lg"}
             disabled={isPending}
@@ -131,6 +133,7 @@ const SignUpCard = () => {
             <FcGoogle className="mr-2 size-5" /> Login with Google
           </Button>
           <Button
+          onClick={() => signUpWithGithub()}
             variant={"secondary"}
             size={"lg"}
             disabled={isPending}
